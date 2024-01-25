@@ -19,10 +19,15 @@ typedef vector<ll> vi;
 void solve()
 {
     string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    cin >> s;
+    map<char,int>mp;
+    for(int i=0;i<s.size();i++)
+    {
+        mp[s[i]]++;
+    }
+    int x = mp.size();
+    if(x%2) cout << "IGNORE HIM!" << endl;
+    else cout << "CHAT WITH HER!" << endl;
 }
 
 signed main()

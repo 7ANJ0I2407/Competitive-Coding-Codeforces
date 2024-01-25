@@ -18,11 +18,22 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n; cin >> n;
+    vi a(n);int sum = 0;
+    forall(i,n,1)
+    {
+        cin >> a[i];
+        sum += a[i];
+    }
+    sort(a.begin(),a.end(),greater<int>());
+    int cnt = 0, currSum = 0;
+    for(;cnt < n; cnt++)
+    {
+        if(currSum > sum/2) break;
+        currSum += a[cnt];
+    }
+    cout << cnt << endl;
+
 }
 
 signed main()

@@ -18,11 +18,24 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    string a,b;
+    cin >> a >> b;
+    transform(a.begin(),a.end(),a.begin(), ::tolower);
+    transform(b.begin(),b.end(),b.begin(), ::tolower);
+    for(int i=0;i<a.size();i++)
+    {
+        if(a[i] > b[i])
+        {
+            cout << 1 << endl;
+            return;
+        }
+        if(a[i] < b[i])
+        {
+            cout << -1 << endl;
+            return;
+        }
+    }
+    cout << 0 << endl;
 }
 
 signed main()

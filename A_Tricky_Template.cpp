@@ -5,6 +5,7 @@
 #include<set>
 #include<unordered_set>
 #include <deque>
+// #include<bits/stdc++.h>
 using namespace std;
 #define pb push_back
 #define pp pop_back
@@ -18,11 +19,21 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n;
+    cin >> n;
+    string a,b,c;
+    cin >> a >> b >> c;
+    bool flag = false;
+    forall(i,n,1)
+    {
+        if(a.substr(i,1) != c.substr(i,1) && b.substr(i,1) != c.substr(i,1))
+        {
+            flag = true;
+            break;
+        }
+    }
+    if(flag) cout << "YES" << endl;
+    else cout << "NO" << endl;
 }
 
 signed main()
@@ -30,7 +41,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-// cin >> t;
+cin >> t;
 while(t--)
 {
 solve();

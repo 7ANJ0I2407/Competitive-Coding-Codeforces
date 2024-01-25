@@ -16,13 +16,22 @@ typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
 
+int lcm(int a , int b)
+{
+    return a*b/__algo_gcd(a,b);
+}
+
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int x; cin >> x;int ans = 0;
+    for(int i = 1; i*i <= x; i++)
+    {
+        if(x % i == 0 && lcm(i,x/i) == x)
+        {
+            ans = i;
+        }
+    }
+    cout << ans << ' ' << x/ans << endl;
 }
 
 signed main()

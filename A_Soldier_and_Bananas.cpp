@@ -18,11 +18,12 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int k,n,w;
+    cin >> k >> n >> w;
+    int sum = (w*(w+1)/2)*k;
+    if(sum > n)
+    cout << sum - n << endl;
+    else cout << 0 << endl;
 }
 
 signed main()

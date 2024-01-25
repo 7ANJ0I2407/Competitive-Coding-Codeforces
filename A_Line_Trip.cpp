@@ -18,11 +18,25 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n, last;
+
+    cin >> n >> last;
+    vi a;
+    a.pb(0);
+    forall(i,n,1)
+    {
+        int m;
+        cin >> m;
+        a.pb(m);
+    }
+    a.pb(last);
+    vi ans;
+    for(int i = 1; i < n+2; i++)
+    {
+        ans.pb(abs(a[i] - a[i - 1]));
+    }
+    ans[n] *= 2;
+    cout << *max_element(ans.begin(),ans.end()) << endl;
 }
 
 signed main()
@@ -30,7 +44,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-// cin >> t;
+cin >> t;
 while(t--)
 {
 solve();

@@ -18,11 +18,23 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int a[5][5];
+    int row = 0,col = 0;
+    for(int i=0;i<5;i++)
+    {
+        for(int j=0;j<5;j++)
+        {
+            cin >> a[i][j];
+            if(a[i][j] == 1) 
+            {
+                row = i+1;
+                col = j+1;
+                break;
+            }
+        }
+    }
+    int rowAns = abs(3-row), colAns = abs(3-col);
+    cout << rowAns+colAns << endl;
 }
 
 signed main()

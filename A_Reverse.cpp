@@ -18,11 +18,29 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n;
+    cin >> n;
+    vi a(n);
+    forall(i,n,1) cin >> a[i];
+    bool flag = false;
+    forall(i,n,1)
+    {
+        int m = i;
+        for(int j=i+1;j<n;j++)
+        {
+            if(a[m] > a[j]) m = j;
+        }
+        if(m != i)
+        {
+            reverse(a.begin()+i,a.begin()+m+1);
+            // swap(a[i],a[m]);
+            break;
+        }
+    }
+    for(auto m : a) cout << m <<' ';
+    cout << endl;
+
+    
 }
 
 signed main()
@@ -30,7 +48,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-// cin >> t;
+cin >> t;
 while(t--)
 {
 solve();

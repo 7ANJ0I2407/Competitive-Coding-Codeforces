@@ -18,11 +18,24 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int lvl;
+    cin >> lvl;
+    // map<int,int> mp;
+    set<int> st;
+    int p;
+    for(int i=0;i<2;i++)
+    {
+        cin >> p;
+        while(p--)
+        {
+            int x;cin >> x;
+            st.insert(x);
+        }
+    }
+    int res = st.size();
+    // cout << res << endl;
+    if(res >= lvl) cout << "I become the guy." << endl;
+    else cout << "Oh, my keyboard!" << endl;
 }
 
 signed main()

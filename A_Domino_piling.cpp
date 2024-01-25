@@ -18,11 +18,9 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n,m;
+    cin >> n >> m;
+    cout << m*n/2 << endl;
 }
 
 signed main()

@@ -18,11 +18,12 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n; cin >> n;int count = 0;
+    for(int i = 1; i <= n; i*=2)
+    {
+        count += n/i;
+    }
+    cout << count << endl;
 }
 
 signed main()
@@ -30,7 +31,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-// cin >> t;
+cin >> t;
 while(t--)
 {
 solve();

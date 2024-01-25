@@ -18,11 +18,19 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s;
-    // cin >> s;
-    getline(cin,s);
-    char x = getchar();
-    cout << s << x << endl;
+    int n; cin >> n;int cnt = 0;
+    // map<int,int>mp;
+    vi mp(70005,0);
+    forall(i,n,1)
+    {
+        int x; cin >> x;
+        mp[x]++;
+    }
+    forall(i,70005,1)
+    {
+        if(mp[i] > 1) cnt += mp[i] - 1,mp[i+1] += mp[i] - 1;
+    }
+    cout << cnt << endl;
 }
 
 signed main()

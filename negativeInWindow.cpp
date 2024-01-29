@@ -22,7 +22,7 @@ void negNumSubArr(vector< int > arr, int k)
     else {
         cout << 0 << " ";
     }
-    /// for next sub_arrays sum we add one elem from last and remove one elem from first
+    /// for next sub_arrays sum we add one elem to last and remove one elem from first
     for (int j = k; j < n; j++)
     {
         int add_index = j;

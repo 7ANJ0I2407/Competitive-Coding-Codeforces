@@ -16,24 +16,23 @@ typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
 
-set<ll>all;
-
-ll n,l,r;
-vector<ll> v;
-void build_array(ll x){
-    if(x>1e10)
-        return ;
-    v.push_back(x);
-    build_array(x*10+7);
-    build_array(x*10+4);
-}
-
 void solve()
 {
-    build_array(4);
-    build_array(7);
-    for(auto m : v)
-    cout << m << endl;
+    int n,k;
+    cin >> n >> k;
+    char c = 'a';
+    string b = "";
+    while(k--)
+    {
+        b += c;
+        c++;
+    }
+    string finalAns = "";
+    while(n--)
+    {
+        finalAns += b;
+    }
+    cout << finalAns << endl;
 }
 
 signed main()
@@ -41,7 +40,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-// cin >> t;
+cin >> t;
 while(t--)
 {
 solve();

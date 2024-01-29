@@ -16,24 +16,26 @@ typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
 
-set<ll>all;
-
-ll n,l,r;
-vector<ll> v;
-void build_array(ll x){
-    if(x>1e10)
-        return ;
-    v.push_back(x);
-    build_array(x*10+7);
-    build_array(x*10+4);
-}
-
 void solve()
 {
-    build_array(4);
-    build_array(7);
-    for(auto m : v)
-    cout << m << endl;
+    int n , b, d;
+    cin >> n >> b >> d;
+    vi a(n);
+    int sum = 0, cnt = 0;
+    forall(i,n,1) 
+    {
+        cin >> a[i];
+        if(a[i] > b) continue;
+        else {
+            sum += a[i];
+        }
+        if(sum > d)
+        {
+            sum = 0;
+            cnt++;
+        }
+    }
+    cout << cnt << endl;
 }
 
 signed main()

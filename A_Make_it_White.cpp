@@ -18,26 +18,30 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n,k,x;
-    cin >> n >> k >> x;
-    vi a(n+1);
-    for(int i = 1; i <= n; i++)
-    cin >> a[i];
-
-    sort(all(a),greater<int>());
-    
-    for(int i = 1; i <= n; i++)
-        a[i] += a[i-1];
-
-    // for(auto m : a) cout << m << ' ';
-    // cout << endl;
-
-    int ans = INT_MIN;
-    for(int i = 0; i <= k; i++)
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int start = 0, end = 0;
+    for(int i = 0; i < n; i++)
     {
-        ans = max(ans, a[n] - 2 * a[min(i + x, n)] + a[i]);
+        if(s[i] == 'B') 
+        {
+            start = i;
+
+            
+             break;
+        }
     }
-    cout << ans << endl;
+    for(int i = n-1; i >= 0; i--)
+    {
+        if(s[i] == 'B') 
+        {
+            end = i;
+            break;
+        }
+    }
+    cout << (end - start + 1) << endl;
 
 }
 

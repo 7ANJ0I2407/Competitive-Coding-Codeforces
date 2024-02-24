@@ -22,8 +22,16 @@ void solve()
     int n;
     cin >> n;
     vi a(n);
-    int cnt = 0, cnt1 = 0;
+    int cnt = 0;
     forall(i,n,1) cin >> a[i];
+    int i = 0, j = n-1;
+    while(a[i] != 1) i++;
+    while(a[j] != 1) j--;
+    for(auto m : a)
+    {
+        if(m == 1) cnt++;
+    }
+    cout << (j-i+1) - cnt << endl;
     
 }
 

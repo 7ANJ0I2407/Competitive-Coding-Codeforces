@@ -16,28 +16,26 @@ using namespace std;
 typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
-
 void solve()
 {
-    int n,k,sum = 0;
-    cin >> n >> k;
-    vi a(n+1);
-    forall(i,n,1) 
+    int n , m;
+    cin >> n >> m;
+    vi a(n), zeros;
+    forall(i,n,1) cin >> a[i];
+    for(auto i : a)
     {
-        cin >> a[i];
-        sum += a[i];
+        int zero = 0, dig = 0;
+        while(i % 10 == 0) zero++, i /= 10;
+        while(i) dig++, i /= 10;
+        m -= dig;
+        zeros.push_back(zero);
     }
-    a[n] = (int)(n * (n + 1)/2 - sum);
-    // cout << a[n] << endl;
-    k %= (n + 1);
-    for(int i = 0; i < n; i++)
-    {
-        int idx = (n - k + 1 + i) % (n + 1);
-        cout << a[idx] << " ";
-    }
-    cout << endl;
-}
 
+    sort(zeros.begin(), zeros.end(), greater<int>());
+    for(int i = 1; i < zeros.size(); i += 2) m-= zeros[i];
+    if(m >= 0) cout << "Anna" << endl;
+    else cout << "Sasha" << endl;
+}
 signed main()
 {
 ios::sync_with_stdio(false);

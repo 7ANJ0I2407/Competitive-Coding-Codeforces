@@ -1,202 +1,126 @@
-#include <iostream>
-#include <cmath>
-#include <vector>
+#include<iostream>
+#include<vector>
+#include<map>
+#include<unordered_map>
+#include<set>
+#include<unordered_set>
+#include <deque>
+//#include <bits/stdc++.h>
 using namespace std;
+#define pb push_back
+#define pp pop_back
+#define ll long long
+#define ld long double
+#define int long long
+#define pair pair<int,int>
+typedef vector<ll> vi;
+#define forall(i,n,x) for(int i=0; i<n; i+=x)
+#define all(x) x.begin(), x.end()
 
-class Set {
-private:
-    int size; 
-    int * store; 
-   
+int rec(int i,int j,int ind,int n,vector<string> & vec,string &str){
+    if(ind == n)return 1;
+    if(vec[i][j] != str[ind])return 0;
 
-public:
-  int index;
-    Set(int *arr, int size) {
-        this->size = size; 
-        store = new int[this->size];
-        index = 0;
-        for (int i = 0; i < size; ++i) {
-            store[index++] = arr[i];
+    int ans = 0;
+    rep(k,0,2){
+        int newX = i + dx[k];
+        int newY = j + dy[k];
+        if(newX >=0 and newX < 2 and newY >=0 and newY < n){
+            ans += rec(newX,newY,ind+1,n,vec,str);
         }
     }
 
-    ~Set() {
-        delete [] store; 
-    }
-      
-    void take_element() {
-        int ele; 
-        cin >> ele; 
-        store[index++] = ele;
-    }    
+    return ans;
+}
 
-    void unionSet(Set *obj1, int n1, Set *obj2, int n2) {
-        for (int i = 0; i < n1; i++) {
-            store[index++] = obj1->store[i]; 
-        }
-        for (int i = 0; i < n2; i++) {
-            store[index++] = obj2->store[i];        
-        }
+void solve()
+{
+    int n;
+    cin>>n;
+
+    vector<string> vec(2);
+    for(auto &val:vec){
+        cin>>val;
     }
 
-    void intersection(Set *obj1, int n1, Set *obj2, int n2) {
-        for (int i = 0; i < n1; i++) {
-            for (int j = 0; j < n2; j++) {
-                if (obj1->store[i] == obj2->store[j]) {
-                    store[index++] = obj1->store[i];
-                }
-            }
+
+
+    int ind = n-1;
+    for(int i = 0;i < n; i++){
+        if(vec[1][i] == '0'){
+            ind = i;
+            break;
         }
     }
 
-    int set_Difference(Set *obj1, Set *obj2) {
-        if (obj1->index > obj2->index) {
-            cout << "The 1st set is bigger "; 
-            return obj1->index - obj2->index;
-        } else if (obj1->index < obj2->index) {
-            cout << "The 2nd set is bigger "; 
-            return obj2->index - obj1->index;
-        } else {
-            cout << "These two are equal size sets "; 
-            return 0; 
+    string ans;
+    for(int i = 0;i <= ind; i++){
+        ans.pb(vec[0][i]);
+    }
+    for(int i = ind; i < n; i++){
+        ans.pb(vec[1][i]);
+    }
+
+    string str = ans;
+    cout<<ans<<endl;
+    cout<<rec(0,0,0,n+1,vec,str)<<endl;
+
+}
+
+signed main()
+{
+ios::sync_with_stdio(false);
+cout.tie(0); cin.tie(0);
+int t = 1;
+cin >> t;
+while(t--)
+{
+solve();
+}
+
+return 0;
+}
+int n;
+    cin>>n;
+
+    vector<string> vec(2);
+    for(auto &val:vec){
+        cin>>val;
+    }
+
+
+
+    int ind = n-1;
+    for(int i = 0;i < n; i++){
+        if(vec[1][i] == '0'){
+            ind = i;
+            break;
         }
     }
 
-    void test_Equal_set(Set *obj1, Set *obj2) {
-        for (int i = 0; i < obj1->index; i++) {
-            for (int j = 0; j < obj2->index; j++) {
-                if (obj1->store[i] != obj2->store[j]) {
-                    cout << "The sets are not equal sets "; 
-                    return; 
-                }
-            }
-        } 
-        cout << "These two are equal sets ";   
-    }   
-
-    void cartesian_Product(Set *obj1, Set *obj2) {
-        for (int i = 0; i < obj1->index; i++) {
-            for (int j = 0; j < obj2->index; j++) {
-                cout << "(" << obj1->store[i] << "," << obj2->store[j] << "),";
-            }
-        }
-        cout << endl;
+    string ans;
+    for(int i = 0;i <= ind; i++){
+        ans.pb(vec[0][i]);
+    }
+    for(int i = ind; i < n; i++){
+        ans.pb(vec[1][i]);
     }
 
-    void printSubsets(const vector<int>* setPtr) {
-        if (setPtr == nullptr)
-            return;
+    string str = ans;
+    cout<<ans<<endl;
+    cout<<rec(0,0,0,n+1,vec,str)<<endl;
+int rec(int i,int j,int ind,int n,vector<string> & vec,string &str){
+    if(ind == n)return 1;
+    if(vec[i][j] != str[ind])return 0;
 
-        const vector<int>& set = *setPtr;
-        int n = set.size();
-        int totalSubsets = pow(2, n);
-
-        for (int i = 0; i < totalSubsets; ++i) {
-            cout << "{ ";
-            for (int j = 0; j < n; ++j) {
-                if (i & (1 << j))
-                    cout << set[j] << " ";
-            }
-            cout << "}\n";
+    int ans = 0;
+    rep(k,0,2){
+        int newX = i + dx[k];
+        int newY = j + dy[k];
+        if(newX >=0 and newX < 2 and newY >=0 and newY < n){
+            ans += rec(newX,newY,ind+1,n,vec,str);
         }
     }
 
-    void distinct_Or_Not(Set *obj) {
-        for (int i = 0; i < obj->index; i++) {
-            for (int j = 0; j < obj->index; j++) {
-                if (obj->store[i] == obj->store[j]) {
-                    cout << "The sets are not distinct sets "; 
-                    return;
-                }
-            }
-        }
-        cout << "Yes, the set is distinct "; 
-    }
-
-    void value(Set *obj) {
-        int sum = 0;
-        for (int i = 0; i < obj->index; i++) {
-            sum += obj->store[i];
-        } 
-        double mean = sum / obj->index;
-        cout << "The value of mean is " << mean << endl; 
-        double variance = 0; 
-        for (int i = 0; i < obj->index; i++) {
-            variance += pow(obj->store[i] - mean, 2);
-        }
-        variance /= obj->index; 
-        cout << "The variance is " << variance << endl;
-        double standard_deviation = sqrt(variance); 
-        cout << "The standard deviation is " << standard_deviation << endl; 
-        if (obj->index % 2 == 0) {
-            int middleIndex = obj->index / 2;
-            double median = (obj->store[middleIndex - 1] + obj->store[middleIndex]) / 2.0; 
-            cout << "The median is " << median << endl; 
-        } else {
-            double median = obj->store[obj->index / 2];
-            cout << "The median is " << median << endl; 
-        } 
-    }
-    void printSet() {
-        cout << "{ ";
-        for (int i = 0; i < index; i++) {
-            cout << store[i] << " ";
-        }
-        cout << "}" << endl;
-    }
-};
-
-int main() {
-    // Take input for Set 1
-    int size1;
-    cout << "Enter the size of Set 1: ";
-    cin >> size1;
-    int* elements1 = new int[size1];
-    cout << "Enter the elements of Set 1: ";
-    for (int i = 0; i < size1; ++i) {
-        cin >> elements1[i];
-    }
-    Set obj1(elements1, size1);
-
-    // Take input for Set 2
-    int size2;
-    cout << "Enter the size of Set 2: ";
-    cin >> size2;
-    int* elements2 = new int[size2];
-    cout << "Enter the elements of Set 2: ";
-    for (int i = 0; i < size2; ++i) {
-        cin >> elements2[i];
-    }
-    Set obj2(elements2, size2);
-
-    // Calculate Union and Intersection using obj3
-    Set obj3(nullptr, size1 + size2);
-    obj3.unionSet(&obj1, size1, &obj2, size2);
-    cout << "Union of Set 1 and Set 2: ";
-    obj3.printSet();
-
-    obj3.index = 0; // Reset index for next operation
-    obj3.intersection(&obj1, size1, &obj2, size2);
-    cout << "Intersection of Set 1 and Set 2: ";
-    obj3.printSet();
-
-    // Calculate Cartesian Product
-    cout << "Cartesian Product of Set 1 and Set 2: ";
-    obj3.cartesian_Product(&obj1, &obj2);
-
-    // Check if the sets are distinct
-    obj3.distinct_Or_Not(&obj1);
-    obj3.distinct_Or_Not(&obj2);
-
-    // Value operations
-    cout << "Value operations for Set 1:" << endl;
-    obj3.value(&obj1);
-    cout << "Value operations for Set 2:" << endl;
-    obj3.value(&obj2);
-
-    // Deallocate memory
-    delete[] elements1;
-    delete[] elements2;
-
-    return 0;
+    return ans;
 }

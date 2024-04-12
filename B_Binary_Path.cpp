@@ -12,30 +12,24 @@ using namespace std;
 #define ll long long
 #define ld long double
 #define int long long
-#define pair pair<int,int>
 typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
 
-void solve()
-{
-    int n,k,sum = 0;
-    cin >> n >> k;
-    vi a(n+1);
-    forall(i,n,1) 
-    {
-        cin >> a[i];
-        sum += a[i];
+void solve() {
+    int n ;
+    string temp1 , temp2 ;
+    cin >> n ;
+    cin >> temp1  >> temp2 ;
+
+    map<string, int> p ;
+    for (int i = 0 ; i < n ; i++) {
+        string temp_store = temp1.substr(0 , i + 1) + temp2.substr(i, n);
+        p[temp_store]++ ;
     }
-    a[n] = (int)(n * (n + 1)/2 - sum);
-    // cout << a[n] << endl;
-    k %= (n + 1);
-    for(int i = 0; i < n; i++)
-    {
-        int idx = (n - k + 1 + i) % (n + 1);
-        cout << a[idx] << " ";
-    }
-    cout << endl;
+
+    cout << p.begin()->first << endl;
+    cout << p.begin()->second << endl;
 }
 
 signed main()

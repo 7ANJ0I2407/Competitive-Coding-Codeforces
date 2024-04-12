@@ -19,23 +19,16 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n,k,sum = 0;
-    cin >> n >> k;
-    vi a(n+1);
-    forall(i,n,1) 
-    {
-        cin >> a[i];
-        sum += a[i];
-    }
-    a[n] = (int)(n * (n + 1)/2 - sum);
-    // cout << a[n] << endl;
-    k %= (n + 1);
-    for(int i = 0; i < n; i++)
-    {
-        int idx = (n - k + 1 + i) % (n + 1);
-        cout << a[idx] << " ";
-    }
-    cout << endl;
+    int n;
+    cin >> n;
+     vi a(n);
+     forall(i,n,1) cin >> a[i];
+    vi b(n);
+    b = a;
+    int ans1 = a[0], ans2 = b[0];
+    for(int i = 1; i < n; i++) ans1 |= a[i];
+    for(int i = 1; i < n; i++) ans2 &= a[i];
+    cout << max(ans1, ans2) << ' ' << min(ans1, ans2);
 }
 
 signed main()
@@ -43,7 +36,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

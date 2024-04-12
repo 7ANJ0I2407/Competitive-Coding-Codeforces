@@ -19,23 +19,21 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n,k,sum = 0;
-    cin >> n >> k;
-    vi a(n+1);
-    forall(i,n,1) 
+    int n;
+    cin >> n;
+    if(n % 2)
     {
-        cin >> a[i];
-        sum += a[i];
+        forall(i,n,1) cout << "7 ";
+        cout << endl;
+        return;
     }
-    a[n] = (int)(n * (n + 1)/2 - sum);
-    // cout << a[n] << endl;
-    k %= (n + 1);
-    for(int i = 0; i < n; i++)
+    else 
     {
-        int idx = (n - k + 1 + i) % (n + 1);
-        cout << a[idx] << " ";
+        cout << "1 3 ";
+        forall(i,n-2,1) cout << "2 ";
+        cout << endl;
+        return;
     }
-    cout << endl;
 }
 
 signed main()

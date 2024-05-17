@@ -15,21 +15,33 @@ using namespace std;
 typedef vector<ll> vi;
 #define forall(i,n,x) for(int i=0; i<n; i+=x)
 #define all(x) x.begin(), x.end()
+char arr[4][10000001];
 
 void solve() {
-    int n ;
-    string temp1 , temp2 ;
-    cin >> n ;
-    cin >> temp1  >> temp2 ;
-
-    map<string, int> p ;
-    for (int i = 0 ; i < n ; i++) {
-        string temp_store = temp1.substr(0 , i + 1) + temp2.substr(i, n);
-        p[temp_store]++ ;
+    int n;
+    cin >> n;
+    string s1, s2;
+    cin >> s1 >> s2;
+    int cnt = 1;
+    // cout << s1 << s2 << endl;
+    for(int i = 0; i < n; i++)
+    {
+        cout << s1[i];
+        if(i == n-1)
+        {
+            cout << s2[n-1];
+            break;
+        }
+        if(s1[i+1] > s2[i])
+        {
+            for(int j = i; j < n; j++) cout << s2[j];
+            break;
+        }
+        else if(s1[i+1] == s2[i]) cnt++;
+        else cnt = 1;
     }
-
-    cout << p.begin()->first << endl;
-    cout << p.begin()->second << endl;
+    cout << endl;
+    cout << cnt << endl;
 }
 
 signed main()

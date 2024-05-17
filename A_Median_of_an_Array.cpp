@@ -24,12 +24,10 @@ void solve()
      vi a(n);
      forall(i,n,1) cin >> a[i];
      int res = 0;
-     forall(i,n,1)
-     {
-        res += a[i] % n;
-        res = res % n;
-     }
-     cout << res << endl;
+     sort(all(a));
+     int idx = (n + 1) / 2 - 1;
+     int ans = count(a.begin() + idx, a.end(), a[idx]);
+     cout << ans << endl;
 }
 
 signed main()

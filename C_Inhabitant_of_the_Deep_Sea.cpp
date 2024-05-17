@@ -21,21 +21,29 @@ void solve()
 {
     int a, b;
     cin >> a >> b;
-    vi v(a);
-    forall(i,a,1) cin >> v[i];
-    int i = 0, j = a-1;
-    int sum = 0, count = 0;
-    while(i <= j)
+    deque<int> dq(a);
+    forall(i,a,1) cin >> dq[i];
+    while(dq.size() > 1 && b)
     {
-        if(v[i] <= b) count++;
-        b -= v[i];
-        i++;
-        if(v[j] <= b) count++;
-        b -= v[j];
-        j--;
+        int mi = min(dq.front(), dq.back());
+        if(b < 2 * mi)
+        {
+            dq.front() -= (b/2) + (b%2);
+            dq.back() -= b/2;
+            b = 0;
+        }
+        else
+        {
+            dq.front() -= mi;
+            dq.back() -= mi;
+            b -= 2 * mi;
+        }
+        if(dq.front() == 0) dq.pop_front();
+        if(dq.back() == 0) dq.pop_back();
     }
-    cout << count << endl;
-    return;
+    int ans = a - dq.size();
+    cout << ans + (dq.size() && dq.front() <= b) << endl;
+
 }
 
 signed main()

@@ -20,20 +20,35 @@ void solve()
 {
     int n,m;
     cin >> n >> m;
-    vi a(n);
-    for(int i=1;i<=n;i++) cin >> a[i];
-    ll index = 1,sum = 0;
-    for(int i=1;i<=m;i++)
+    vi a(n + 1, 0);
+    for(int i=1;i<=n;i++) 
     {
-
-        ll b;
-        cin >> b;
-        while(sum +a[index] < b)
-        {
-            sum+= a[index++];
-        }
-        cout << index << ' ' << b - sum << endl;
+        cin >> a[i];
+        a[i] += a[i-1];
     }
+    int idx = 1;
+    for(int i = 0; i < m; i++)
+    {
+        int x;
+        cin >> x;
+        while(x > a[idx])
+        {
+            idx++;
+        }
+    cout << idx << ' ' << x - a[idx-1] << endl;
+    }
+    // ll index = 1,sum = 0;
+    // for(int i=1;i<=m;i++)
+    // {
+
+    //     ll b;
+    //     cin >> b;
+    //     while(sum +a[index] < b)
+    //     {
+    //         sum+= a[index++];
+    //     }
+    //     cout << index << ' ' << b - sum << endl;
+    // }
 }
 
 signed main()

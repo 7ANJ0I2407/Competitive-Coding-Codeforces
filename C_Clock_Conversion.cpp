@@ -21,27 +21,33 @@ void solve()
 {
     string s;
     cin >> s;
-    string temp = s.substr(0,2);
-    int num = stoi(temp);
-    // cout << num << endl;
-    if(num == 0) cout << 12 << s.substr(2,3) << " PM" << endl;
-    else if(num < 12) cout << s << " AM"<< endl;
-    else{
-        if(num == 12)
-        {
-            cout << s;
-
-        } 
-        else{
-        int rem = num - 12;
-        string modify = to_string(rem);
-        if(modify.size() < 2) cout << 0;
-        s.replace(0,2,modify);
-        cout << s;
-        }
-        cout <<" PM" << endl;
+    string h = s.substr(0,2);
+    string m = s.substr(3);
+    int hh = stoi(h);
+    int mm = stoi(m);
+    if(hh < 12 && hh != 0)
+    {
+        cout << s << " AM" << endl;
     }
-    // cout << num<< endl;
+    else if(hh == 00)
+    {
+        cout << 12 << ":";
+        cout << (mm < 10 ? "0" + to_string(mm) +" AM" : to_string(mm) + " AM") << endl;
+    }
+    else if (hh >= 12)
+    {
+        if(hh == 12)
+        {
+            cout << hh << ":";
+            cout << (mm < 10 ? "0" + to_string(mm) +" PM" : to_string(mm) + " PM") << endl;
+
+        }
+        else
+        {
+            cout << ((hh - 12) < 10 ? "0" + to_string(hh - 12) : to_string(hh - 12)) << ':';
+            cout << (mm < 10 ? "0" + to_string(mm) +" PM" : to_string(mm) + " PM") << endl;
+        }
+    }
 }
 
 signed main()

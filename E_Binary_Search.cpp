@@ -37,11 +37,7 @@ void solve()
         int mid = (h + l) / 2;
         if(a[mid] <= k) l = mid;
         else h = mid;
-        // cout << a[mid] << endl;
-        // cout << mid << ' ' << l << ' ' << h << ' ' << endl;
     }
-    // cout << endl;
-    // cout << l << endl;
     cout << 1 << endl;
     cout << idx << ' ' << l + 1 << endl;
 }

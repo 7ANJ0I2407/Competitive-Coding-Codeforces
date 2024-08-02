@@ -36,7 +36,7 @@ int mod_inv(int a, int mod) {
 void solve() {
     string s;
     cin >> s;
-    int p = 31;
+    int p = 37;
     int n = s.size();
     vector<int> hash(n, 0);
     

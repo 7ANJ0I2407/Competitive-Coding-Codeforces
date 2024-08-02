@@ -20,27 +20,29 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
-const int MOD = 1e9 + 7;
-
-int power(int n, int r, int m = 1e9 + 7)
-{
-    if(r == 0) return 1;
-    if(r % 2 == 0)
-    {
-        int y = power(n, r/2, m);
-        return (y*y) % m;
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    
+    vector<string> v;
+    forall(i, n, 1) {
+        string s;
+        cin >> s;
+        v.push_back(s);
     }
-    return (n * power(n, r-1, m)) % m;
-}
-
-void solve()
-{
-    int l, r, k;
-    cin >> l >> r >> k;
-    int maxi = power((9/k + 1), r) % MOD;
-    int mini = power((9/k + 1), l) % MOD;
-    int res =( maxi - mini + MOD) % MOD;
-    cout << res % MOD << endl;
+    int size = n / k;
+    vector<vector<int> > ans(size, vector<int>(size));
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            ans[i][j] = v[i * k][j * k] - '0';
+        }
+    }
+    forall(i, size, 1) {
+        forall(j, size, 1) {
+            cout << ans[i][j];
+        }
+        cout << endl;
+    }
 }
 
 signed main()

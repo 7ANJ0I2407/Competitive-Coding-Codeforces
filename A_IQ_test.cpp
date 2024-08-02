@@ -20,27 +20,36 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
-const int MOD = 1e9 + 7;
-
-int power(int n, int r, int m = 1e9 + 7)
-{
-    if(r == 0) return 1;
-    if(r % 2 == 0)
-    {
-        int y = power(n, r/2, m);
-        return (y*y) % m;
-    }
-    return (n * power(n, r-1, m)) % m;
-}
-
 void solve()
 {
-    int l, r, k;
-    cin >> l >> r >> k;
-    int maxi = power((9/k + 1), r) % MOD;
-    int mini = power((9/k + 1), l) % MOD;
-    int res =( maxi - mini + MOD) % MOD;
-    cout << res % MOD << endl;
+    int n;
+    cin >> n;
+    vi a(n);
+    for(int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int odd = 0, even = 0;
+    int odd_idx = -1, even_idx = -1;
+    for(int i = 0; i < n; i++)
+    {
+        if(a[i] % 2 == 0)
+        {
+            even++;
+            even_idx = i + 1;
+        }
+        else
+        {
+            odd++;
+            odd_idx = i + 1;
+        }
+    }
+    if(odd == 1)
+    {
+        cout << odd_idx << endl;
+    }
+    else cout << even_idx << endl;
+    
 }
 
 signed main()
@@ -48,7 +57,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

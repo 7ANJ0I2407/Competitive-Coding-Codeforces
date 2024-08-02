@@ -20,27 +20,39 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
-const int MOD = 1e9 + 7;
-
-int power(int n, int r, int m = 1e9 + 7)
-{
-    if(r == 0) return 1;
-    if(r % 2 == 0)
-    {
-        int y = power(n, r/2, m);
-        return (y*y) % m;
-    }
-    return (n * power(n, r-1, m)) % m;
-}
-
 void solve()
 {
-    int l, r, k;
-    cin >> l >> r >> k;
-    int maxi = power((9/k + 1), r) % MOD;
-    int mini = power((9/k + 1), l) % MOD;
-    int res =( maxi - mini + MOD) % MOD;
-    cout << res % MOD << endl;
+    string s, t;
+    cin >> s >> t;
+    int n = s.size();
+    int m = t.size();
+    int ans = 1;
+    set<int> pos[26];
+    for (int i = 0; i < n; i++)
+    {
+        pos[s[i] - 'a'].insert(i);
+    }
+    int cur = -1;
+    for (int i = 0; i < m; i++)
+    {
+        int ch = t[i] - 'a';
+        if (pos[ch].empty())
+        {
+            cout << -1 << endl;
+            return;
+        }
+        auto it = pos[ch].upper_bound(cur);
+        if (it == pos[ch].end())
+        {
+            ans++;
+            cur = *pos[ch].begin();
+        }
+        else
+        {
+            cur = *it;
+        }
+    }
+    cout << ans << endl;
 }
 
 signed main()
@@ -48,7 +60,6 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
 while(t--)
 {
 solve();

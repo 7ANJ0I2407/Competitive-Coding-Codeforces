@@ -22,38 +22,34 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vi a;
+    for(int i = 0; i < n; i++)
     {
-        pos[s[i] - 'a'].insert(i);
+        int x;
+        cin >> x;
+        a.pb(x);
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    int sum = 0;
+    int negMax = INT_MIN;
+    int posMin = INT_MAX;
+    forall(i,n,1)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
+        if(a[i] < 0 && a[i] % 2 != 0)
         {
-            cout << -1 << endl;
-            return;
+            negMax = max(negMax, a[i]);
         }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
+        if(a[i] > 0 && a[i] % 2 != 0)
         {
-            ans++;
-            cur = *pos[ch].begin();
+            posMin = min(posMin, a[i]);
         }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
+        if(a[i] > 0) sum += a[i];
     }
-    // cout << ans << endl;
+    if(sum % 2) cout << sum << endl;
+    else cout << sum - min(abs(negMax), posMin) << endl;
+
+
 }
 
 signed main()
@@ -61,6 +57,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+// cin >> t;
 while(t--)
 {
 solve();

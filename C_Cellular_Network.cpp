@@ -22,38 +22,37 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
+    set<int> s;
+    for(int i = 0; i < n; i++)
     {
-        pos[s[i] - 'a'].insert(i);
+        cin >> a[i];
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    for(int i = 0; i < m; i++)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
-        {
-            cout << -1 << endl;
-            return;
-        }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
+        int x;
+        cin >> x;
+        s.insert(x);
     }
-    // cout << ans << endl;
+    int ans = 0;
+    for(int i = 0; i < n; i++)
+    {
+        int dist = INT_MAX;
+        auto idx = s.lower_bound(a[i]);
+        if(idx != s.end())
+        {
+            dist = *idx - a[i]; // right side tower colse to a[i];
+        }
+        if(idx != s.begin())
+        {
+            idx--;
+            dist = min(dist,a[i] - *idx); // left side tower close to a[i];
+        }
+        ans = max(ans, dist);
+    }
+    cout << ans << endl;
 }
 
 signed main()
@@ -61,6 +60,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+// cin >> t;
 while(t--)
 {
 solve();

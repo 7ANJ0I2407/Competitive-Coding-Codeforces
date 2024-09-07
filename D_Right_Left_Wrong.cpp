@@ -22,38 +22,35 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vi a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+    string s;
+    cin >> s;
+    int start = 0, end = n - 1;
+    vi pref(n+1, 0);
+    for(int i = 0; i < n; i++)
     {
-        pos[s[i] - 'a'].insert(i);
+        pref[i+1] = pref[i] + a[i];
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    int ans = 0;
+    // 0 pref[i] pref[i+1] pref[i+2] ...
+    // 0 1 2 3 4 5 6 7 8 9 10
+    // forall(i, n+1, 1) cout << pref[i] << " ";
+    while(start < end)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
+        if(s[start] == 'L' && s[end] == 'R') 
         {
-            cout << -1 << endl;
-            return;
+            ans += (pref[end+1] - pref[start]);
+            start++;
+            end--;
         }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
+        else if(s[start] != 'L') start++;
+        else if(s[end] != 'R') end--;
     }
-    // cout << ans << endl;
+    cout << ans << endl;
+
 }
 
 signed main()
@@ -61,6 +58,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+cin >> t;
 while(t--)
 {
 solve();

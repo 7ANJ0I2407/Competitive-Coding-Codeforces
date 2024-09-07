@@ -19,41 +19,20 @@ typedef vector<ll> vi;
 #define all(x) x.begin(), x.end()
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
-
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    set<int> s;
+    for(int i = 1; i * i * i <= n; i++)
     {
-        pos[s[i] - 'a'].insert(i);
+        s.insert(i*i*i);
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    for(int i = 1; i * i <= n; i++)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
-        {
-            cout << -1 << endl;
-            return;
-        }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
+        s.insert(i*i);
     }
-    // cout << ans << endl;
+    cout << s.size() << endl;
 }
 
 signed main()
@@ -61,6 +40,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+cin >> t;
 while(t--)
 {
 solve();

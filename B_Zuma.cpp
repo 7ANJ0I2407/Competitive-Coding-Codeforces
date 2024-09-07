@@ -20,40 +20,35 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+ll dp[1000][1000];
+
+int rec(vector<int> & a, int i, int j)
+{
+    if(i >= j) return 1;
+    if(dp[i][j] != -1) return dp[i][j];
+    ll ans = 1 + min(rec(a, i+1, j), rec(a, i, j-1));
+    if(a[i] == a[j])
+    {
+        ans = min(ans, rec(a, i+1, j-1));
+    }
+    for(int k = i+1; k < j; k++)
+    {
+        if(a[i] == a[k])
+        {
+            ans = min(ans, rec(a, i+1, k-1) + rec(a, k+1, j));
+        }
+    }
+    return dp[i][j] = ans;
+
+}
+
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
-    {
-        pos[s[i] - 'a'].insert(i);
-    }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
-    {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
-        {
-            cout << -1 << endl;
-            return;
-        }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
-    }
-    // cout << ans << endl;
+    int n; cin >> n;
+    vi a(n, 0);
+    forall(i, n, 1) cin >> a[i];
+    memset(dp, -1, sizeof(dp));
+    cout << rec(a, 0, n-1) << endl;
 }
 
 signed main()
@@ -61,6 +56,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+// cin >> t;
 while(t--)
 {
 solve();

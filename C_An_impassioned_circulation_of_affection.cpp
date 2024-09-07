@@ -22,38 +22,36 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    int dp[27][1600] = {0};
+    for(char i = 0; i < 26; i++)
     {
-        pos[s[i] - 'a'].insert(i);
+        for(int j = 0; j < n; j++)
+        {
+            int replaced = 0;
+            for(int k = j; k < n; k++)
+            {
+                if(s[k] - 'a' != i) replaced++;
+                dp[i][replaced] = max(dp[i][replaced], k - j + 1);
+            }
+        }
+        for(int j = 1; j < 1600; j++)
+        {
+            dp[i][j] = max(dp[i][j], dp[i][j - 1]);
+        }
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    int q;
+    cin >> q;
+    while(q--)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
-        {
-            cout << -1 << endl;
-            return;
-        }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
+        int m;
+        char c;
+        cin >> m >> c;
+        cout << dp[c - 'a'][m] << endl;
     }
-    // cout << ans << endl;
 }
 
 signed main()
@@ -61,6 +59,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+// cin >> t;
 while(t--)
 {
 solve();

@@ -22,38 +22,37 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    string s, t;
-    cin >> s >> t;
-    int n = s.size();
-    int m = t.size();
-    int ans = 1;
-    set<int> pos[26];
-    for (int i = 0; i < n; i++)
+    int n;
+    cin >> n;
+    vi a(n);
+    forall(i, n, 1)
     {
-        pos[s[i] - 'a'].insert(i);
+        cin >> a[i];
     }
-    int cur = -1;
-    for (int i = 0; i < m; i++)
+    sort(all(a));
+    int pos = n-1;
+    vi ans(n);
+    if(n & 1)
     {
-        int ch = t[i] - 'a';
-        if (pos[ch].empty())
+        ans[0] = a[n/2];
+        forall(i, n/2, 1)
         {
-            cout << -1 << endl;
-            return;
+            ans[pos--] = a[i];
+            ans[pos--] = a[n-i-1];
         }
-        auto it = pos[ch].upper_bound(cur);
-        if (it == pos[ch].end())
-        {
-            ans++;
-            cur = *pos[ch].begin();
-        }
-        else
-        {
-            cur = *it;
-        }
-        cout << cur << " ";
     }
-    // cout << ans << endl;
+    else {
+        forall(i, n/2, 1)
+        {
+            ans[pos--] = a[i];
+            ans[pos--] = a[n-i-1];
+        }
+    }
+    forall(i, n, 1)
+    {
+        cout << ans[i] << " ";
+    }
+    cout << endl;
 }
 
 signed main()
@@ -61,6 +60,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
+cin >> t;
 while(t--)
 {
 solve();

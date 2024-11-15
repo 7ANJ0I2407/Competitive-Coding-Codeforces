@@ -20,36 +20,38 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+vi adj[100005];
+bool used[100005];
+int dist[100005];
+
+
+void dfs(int v)
+{
+    used[v] = 1;
+    for(int u : adj[v])
+    {
+        dist[u] = dist[v] + 1;
+        if(!used[u]) dfs(u);
+    }
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    vi a(n + 1);
+    for(int i = 1; i <= n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
+        if(a[i] != -1) adj[a[i]].pb(i);
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    for(int i = 1; i <= n; i++)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        if(a[i] == -1) dist[i] = 1, dfs(i);
     }
+    int ans = INT_MIN;
+    for(int i = 1; i <= n; i++) ans = max(ans, dist[i]);
     cout << ans << endl;
-
 }
 
 signed main()
@@ -57,7 +59,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

@@ -22,34 +22,30 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
-    {
-        pref[i+1] = pref[i] + a[i];
-    }
+    forall(i, n, 1) cin >> a[i];
+    sort(all(a));
+    int curr = n;
     int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    int taken = 0;
+    for(auto x : a)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
+        int temp = (x - taken) * curr; // how many lemons we can buy
+        curr--; // we can buy one less lemon
+        if(temp >= k)  // if we can buy all the lemons
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            ans += k;
+            break;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        else {
+            k -= temp;
+            ans += temp + 1;
+        }
+        taken = x;
     }
     cout << ans << endl;
-
 }
 
 signed main()

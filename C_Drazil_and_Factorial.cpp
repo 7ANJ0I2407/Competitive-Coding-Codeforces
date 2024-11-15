@@ -24,32 +24,25 @@ void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
     string s;
     cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    map<int, string> m;
+    m[2] = "2";
+    m[3] = "3";
+    m[4] = "322";
+    m[5] = "5";
+    m[6] = "53";
+    m[7] = "7";
+    m[8] = "7222";
+    m[9] = "7332";
+    string ans = "";
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        if(s[i] == '0' || s[i] == '1') continue;
+        ans += m[s[i]-'0'];
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
-    }
+    sort(all(ans), greater<char>());
     cout << ans << endl;
-
 }
 
 signed main()
@@ -57,7 +50,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

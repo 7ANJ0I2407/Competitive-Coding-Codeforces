@@ -20,36 +20,52 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+int par[101];
+
+int find(int x)
+{
+    if(par[x] == x) return x;
+    return par[x] = find(par[x]);
+}
+
+void unite(int x, int y)
+{
+    int a = find(x);
+    int b = find(y);
+    if(a != b) par[a] = b;
+}
+
+
 void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    vector<pair> adj(n);
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> adj[i].first >> adj[i].second;
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    for(int i = 0; i < 101; i++) 
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        par[i] = i;
     }
-    cout << ans << endl;
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = i+1; j < n; j++)
+        {
+            if(adj[i].first == adj[j].first || adj[i].second == adj[j].second)
+            {
+                unite(i, j);
+            }
+        }
+    }
+    int components = 0;
 
+    for(int i = 0; i < n; i++)
+    {
+        if(par[i] == i) components++;
+    }
+    cout << components-1 << endl;
 }
 
 signed main()
@@ -57,7 +73,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

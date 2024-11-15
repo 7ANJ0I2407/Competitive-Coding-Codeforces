@@ -24,32 +24,20 @@ void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    vector<int> a(n);
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    int sum = accumulate(all(a), 0ll);
+    if(n <= 2)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        cout << -1 << endl;
+        return;
     }
-    cout << ans << endl;
-
+    sort(all(a));
+    cout << max(0ll, 2 * n * a[n/2] - sum + 1) << endl;
+    
 }
 
 signed main()

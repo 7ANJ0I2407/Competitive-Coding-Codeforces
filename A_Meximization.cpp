@@ -20,36 +20,30 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+bool comp(int x, int y)
+{
+    return x < y;
+}
+
 void solve()
 {
     int n;
     cin >> n;
     vi a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    sort(all(a), comp);
+    vi b;
+    forall(i, n, 1)
     {
-        pref[i+1] = pref[i] + a[i];
+        if(i == 0) b.pb(a[i]);
+        else if(a[i] != a[i - 1]) b.pb(a[i]);
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    for(int i = 1; i < n; i++)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        if(a[i] == a[i-1]) b.pb(a[i]);
     }
-    cout << ans << endl;
-
+    forall(i, n, 1) cout << b[i] << " ";
+    cout << endl;
 }
 
 signed main()

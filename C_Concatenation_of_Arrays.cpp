@@ -20,36 +20,28 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+bool comp(pair a, pair b)
+{
+    return a.second + a.first < b.second + b.first;
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    vector<pair> a;
+    forall(i, n, 1)
     {
-        pref[i+1] = pref[i] + a[i];
+        int x, y;
+        cin >> x >> y;
+        a.pb(make_pair(x, y));
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    sort(all(a), comp);
+    forall(i, n, 1)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        cout << a[i].first << " " << a[i].second  << ' ';
     }
-    cout << ans << endl;
-
+    cout << endl;
 }
 
 signed main()

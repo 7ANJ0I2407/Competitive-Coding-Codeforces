@@ -20,36 +20,50 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+int query(string& s)
+{
+    cout << "? " << s << endl;
+    int x;
+    cin >> x;
+    return x;
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    string ans = "";
+    while(ans.size() < n)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
+        string n1 = ans + '0';
+        string n2 = ans + '1';
+        if(query(n1))
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            ans = n1;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        else if(query(n2))
+        {
+            ans = n2;
+        }
+        else
+        {
+            break;
+        }
     }
-    cout << ans << endl;
-
+    while(ans.size() < n)
+    {
+        string n1 = '0' + ans;
+        string n2 = '1' + ans;
+        if(query(n1))
+        {
+            ans = n1;
+        }
+        else
+        {
+            ans = n2;
+        }
+    }
+    cout << "! " << ans << endl;
 }
 
 signed main()

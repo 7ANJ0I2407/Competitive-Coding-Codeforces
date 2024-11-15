@@ -22,34 +22,28 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
     vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    int sum = accumulate(all(a), 0LL);
+    int maxCard = *max_element(all(a));
+    int totalCards = sum + k;
+    int deckSize = n;
+    while(deckSize > 0)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
+        ll totalDecks = totalCards / deckSize;
+        if(totalDecks * deckSize >= sum && totalDecks >= maxCard)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            cout << deckSize << endl;
+            return;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        deckSize--;
     }
-    cout << ans << endl;
-
+    cout << 1 << endl;
 }
 
 signed main()

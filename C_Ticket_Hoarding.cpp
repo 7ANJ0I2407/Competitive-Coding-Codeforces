@@ -22,34 +22,22 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
+    int n, m, k;
+    cin >> n >> m >> k;
+    vector<int> a(n);
     for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    sort(all(a));
+    int ans = 0;
+    int hike = 0;
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        int tickets = min(m, k);
+        int cost = (a[i] + hike) * tickets;
+        k -= tickets;
+        hike += tickets;
+        ans += cost; // total cost
     }
     cout << ans << endl;
-
 }
 
 signed main()

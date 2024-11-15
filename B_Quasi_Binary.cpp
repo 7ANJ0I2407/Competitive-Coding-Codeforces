@@ -24,31 +24,23 @@ void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    vi ans;
+    while(n)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
+        int temp = n, num = 0, product = 1;
+        while(temp)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            if(temp % 10) num += product;
+            temp /= 10;
+            product *= 10;
+            cout << temp << endl;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        ans.pb(num);
+        n -= num;
     }
-    cout << ans << endl;
+    cout << ans.size() << endl;
+    for(auto x: ans) cout << x << ' ';
+    cout << endl;
 
 }
 
@@ -57,7 +49,6 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
 while(t--)
 {
 solve();

@@ -20,35 +20,25 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+const int maxi = 200008;
+int a[maxi], pref[maxi];
+
+int count(int x)
+{
+    int cnt = 0;
+    while(x)
+    {
+        cnt++;
+        x /= 3;
+    }
+    return cnt;
+}
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
-    {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
-    }
-    cout << ans << endl;
+    int l, r;
+    cin >> l >> r;
+    cout << pref[r] - pref[l - 1] + a[l] << endl;
 
 }
 
@@ -58,6 +48,13 @@ ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
 cin >> t;
+pref[0] = 0;
+for(int i = 1; i < maxi - 1; i++)
+{
+    a[i] = count(i);
+    pref[i] = pref[i - 1] + a[i];
+}
+
 while(t--)
 {
 solve();

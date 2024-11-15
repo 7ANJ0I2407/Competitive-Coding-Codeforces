@@ -22,33 +22,38 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
+    int n, q;
+    cin >> n >> q;
     vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    map<int, int> mp;
+    for(int i = 0; i < n; i++)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
+        ll segment = (i + 1) * (n - i) - 1; // how many segments are there
+        mp[segment]++;
+        if(i > 0)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            ll s = i * (n - i); // in between segments
+            mp[s] += (a[i] - a[i - 1] - 1); // how many points are there in between
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
     }
-    cout << ans << endl;
+    while(q--)
+    {
+        int k;
+        cin >> k;
+        if(mp.find(k) == mp.end())
+        {
+            cout << 0 << ' ';
+        }
+        else
+        {
+            cout << mp[k] << ' ';
+        }
+    }
+    cout << endl;
 
 }
 

@@ -22,34 +22,30 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
-    {
-        pref[i+1] = pref[i] + a[i];
-    }
+    int b, c, d;
+    cin >> b >> c >> d;
     int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    for(int i = 0; i < 60; i++)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
+        int bit_b = (b >> i) & 1;
+        int bit_c = (c >> i) & 1;
+        int bit_d = (d >> i) & 1;
+        int bit_a = -1;
+        for(int aa = 0; aa < 2; aa++)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            if((aa | bit_b) - (aa & bit_c) == bit_d)
+            {
+                bit_a = aa;
+            }
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        if(bit_a == -1)
+        {
+            cout << -1 << endl;
+            return;
+        }
+        ans |= bit_a << i;
     }
     cout << ans << endl;
-
 }
 
 signed main()

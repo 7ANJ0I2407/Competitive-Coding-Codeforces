@@ -20,36 +20,35 @@ typedef vector<ll> vi;
 #pragma GCC optimize("O3")
 #pragma GCC target("avx2")
 
+const int mod = 1000000007;
+
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    int n, k;
+    cin >> n >> k;
+    // vi a(n+1, 0);
+    int maxi = 100000;
+    vi dp(maxi, 0);
+    vi pref(maxi, 0);
+    dp[0] = 1;
+    for(int i = 1; i <= maxi; i++)
+    {
+        dp[i] = dp[i-1];
+        if(i >= k) dp[i] = (dp[i] + dp[i-k]) % mod;
+    }
+    for(int i = 1; i <= maxi; i++)
+    {
+        pref[i] = (pref[i-1] + dp[i]) % mod;
+    }
+    // forall(i, 50, 1) cout << pref[i] << ' ';
+    // cout << endl;
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        int l, r;
+        cin >> l >> r;
+        cout << (pref[r] - pref[l-1] + mod) % mod << endl;
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
-    }
-    cout << ans << endl;
-
+    
 }
 
 signed main()
@@ -57,7 +56,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

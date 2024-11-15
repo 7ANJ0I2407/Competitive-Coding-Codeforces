@@ -22,34 +22,26 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n);
     for(int i = 0; i < n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    k--;
+    vi ind;
+    forall(i, n, 1) if(a[i] > a[k]) ind.pb(i);
+    if(ind.size() == 0)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        cout << n - 1 << endl;
+        return;
     }
+    int ans = ind[0] - 1;
+    if(ind[0] == 0) ind[0] = 1;
+    if(ind.size() > 1) ans = max(ans, min(k, ind[1]) - ind[0]); // if more than one cow is greater than kth cow
+    else ans = max(ans, k - ind[0]); // if only one cow is greater than kth cow
     cout << ans << endl;
-
 }
 
 signed main()

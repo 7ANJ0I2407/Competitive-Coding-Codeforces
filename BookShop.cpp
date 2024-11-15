@@ -22,34 +22,22 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    int n, x;
+    cin >> n >> x;
+    vector<int> price(n), pages(n);
+    
+    for (int i = 0; i < n; i++) cin >> price[i];
+    for (int i = 0; i < n; i++) cin >> pages[i];
+    vector<vector<int> > dp(n+1, vector<int> (x+1, 0));
+    for(int i = 1; i <= n; i++)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
+        for(int j = 0; j <= x; j++)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            dp[i][j] = dp[i-1][j];
+            if(j >= price[i-1]) dp[i][j] = max(dp[i][j], dp[i-1][j - price[i-1]] + pages[i-1]);
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
     }
-    cout << ans << endl;
-
+    cout << dp[n][x] << endl;
 }
 
 signed main()
@@ -57,7 +45,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

@@ -22,33 +22,31 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
     string s;
     cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    int n = s.size();
+    int a = 0, b = 0;
+    int f_a = n, l_a = -1, f_b = n, l_b = -1;
+    for(int i = 0; i < n-1; i++)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
+        if(s[i] == 'A' && s[i+1] == 'B')
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            f_a = min(f_a, i);
+            l_a = max(l_a, i);
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        else if(s[i] == 'B' && s[i+1] == 'A')
+        {
+            f_b = min(f_b, i);
+            l_b = max(l_b, i);
+        }
     }
-    cout << ans << endl;
+    if(f_a != n && f_b != n)
+    {
+        if(abs(f_a - l_b) > 1 || abs(f_b - l_a) > 1) cout << "YES" << endl;
+        else cout << "NO" << endl;
+    }
+    else cout << "NO" << endl;
+    // cout << f_a << " " << l_a << " " << f_b << " " << l_b << endl;
 
 }
 
@@ -57,7 +55,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

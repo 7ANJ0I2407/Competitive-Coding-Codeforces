@@ -24,32 +24,27 @@ void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
     string s;
     cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    int cnt0 = 0, cnt1 = 0;
+    int j = 0;
+    forall(i, n, 1)
     {
-        pref[i+1] = pref[i] + a[i];
-    }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
+        if(s[i] == '0') 
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            cnt0++;
+            j = i;
+            while(j < n && s[j] == '0') j++;
+            i = j-1;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        else {
+            cnt1++;
+            // cout << i << endl;
+        }
     }
-    cout << ans << endl;
-
+    // cout << cnt0 << " " << cnt1 << endl;
+    if(cnt1 > cnt0) cout << "Yes" << endl;
+    else cout << "No" << endl;
 }
 
 signed main()

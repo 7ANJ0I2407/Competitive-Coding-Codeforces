@@ -29,21 +29,41 @@ void solve()
     int x = sqrt(n);
     if(x * x != n)
     {
-        cout << "NO" << endl;
+        cout << "No" << endl;
         return;
     }
-    forall(i, x, 1)
+    bool check = true;
+    for(int i = 0; i < x; i++)
     {
-        forall(j, x, 1)
+        if(s[i] != '1' || s[n - x + i] != '1')
         {
-            if(s[i * x + j] != s[j * x + i])
+            check = false;
+            break;
+        }
+    }
+    for(int i = 1; i < x - 1; i++)
+    {
+        if(s[i * x] != '1' || s[i * x + x - 1] != '1')
+        {
+            check = false;
+            break;
+        }
+        for(int j = 1; j < x - 1; j++)
+        {
+            if(s[i * x + j] != '0')
             {
-                cout << "NO" << endl;
-                return;
+                check = false;
+                break;
             }
         }
     }
-    cout << "YES" << endl;
+    if(check)
+    {
+        cout << "Yes" << endl;
+    }
+    else {
+        cout << "No" << endl;
+    }
 }
 
 signed main()

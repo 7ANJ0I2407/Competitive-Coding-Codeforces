@@ -25,31 +25,17 @@ void solve()
     int n;
     cin >> n;
     vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    map<int , int> mp;
+    forall(i , n, 1) 
     {
-        pref[i+1] = pref[i] + a[i];
+        cin >> a[i];
+        mp[a[i]]++;
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
-    {
-        if(s[start] == 'L' && s[end] == 'R') 
-        {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
-        }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
-    }
-    cout << ans << endl;
-
+    int dp[100001] = {0};
+    dp[0] = 0;
+    dp[1] = mp[1];
+    for(int i = 2; i < 100001; i++) dp[i] = max(dp[i-1], mp[i] * i + dp[i-2]);
+    cout << dp[100000] << endl;
 }
 
 signed main()
@@ -57,7 +43,7 @@ signed main()
 ios::sync_with_stdio(false);
 cout.tie(0); cin.tie(0);
 int t = 1;
-cin >> t;
+// cin >> t;
 while(t--)
 {
 solve();

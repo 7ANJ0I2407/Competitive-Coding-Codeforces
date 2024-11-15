@@ -22,34 +22,37 @@ typedef vector<ll> vi;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    for(int i = 0; i < n; i++) cin >> a[i];
-    string s;
-    cin >> s;
-    int start = 0, end = n - 1;
-    vi pref(n+1, 0);
-    for(int i = 0; i < n; i++)
+    int n, d, k;
+    cin >> n >> d >> k;
+    vector<int> a(n+2);
+    while(k--)
     {
-        pref[i+1] = pref[i] + a[i];
+        int l, r;
+        cin >> l >> r;
+        l = max(1ll, l - d + 1);
+        a[l]++;
+        a[r+1]--;
     }
-    int ans = 0;
-    // 0 pref[i] pref[i+1] pref[i+2] ...
-    // forall(i, n+1, 1) cout << pref[i] << " ";
-    while(start < end)
+    for(int i = 1; i <= n; i++)
     {
-        if(s[start] == 'L' && s[end] == 'R') 
+        a[i] += a[i-1];
+    }
+    int st = -1, en = -1;
+    int mini = INT_MIN, maxi = INT_MAX;
+    for(int i = 1; i + d - 1 <= n; i++)
+    {
+        if(a[i] > mini)
         {
-            ans += (pref[end+1] - pref[start]);
-            start++;
-            end--;
+            mini = a[i];
+            st = i;
         }
-        else if(s[start] != 'L') start++;
-        else if(s[end] != 'R') end--;
+        if(a[i] < maxi)
+        {
+            maxi = a[i];
+            en = i;
+        }
     }
-    cout << ans << endl;
-
+    cout << st << " "<< en << endl;
 }
 
 signed main()

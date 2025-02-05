@@ -33,3 +33,4 @@ RemovingDigits
 *.pdf
 *.bin
 .vscode
+.gitignore.swp

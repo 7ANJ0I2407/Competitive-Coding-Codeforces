@@ -108,7 +108,14 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "bit": "cpp",
-        "concepts": "cpp"
+        "concepts": "cpp",
+        "coroutine": "cpp",
+        "expected": "cpp",
+        "random": "cpp",
+        "spanstream": "cpp",
+        "stdfloat": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
